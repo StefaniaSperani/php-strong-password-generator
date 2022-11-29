@@ -22,6 +22,21 @@ Dare all’utente anche la possibilità di permettere o meno la ripetizione di c
 
 <?php
 
+include __DIR__ . '/functions/functions.php';
+
+$password = '';
+$characters = [
+    'lettere' => 'abcdefghihyjklmnopqrstuvwxyz',
+    'numeri' => '1234567890',
+    'simboli' => '!£$%&/()=?^{}[]#@.,-_<>;'
+];
+
+
+if (isset($_GET['passwordLength']) && !empty($_GET['passwordLength'])) {
+    var_dump($_GET['passwordLength']);
+}
+;
+
 ?>
 
 <!DOCTYPE html>
@@ -44,20 +59,28 @@ Dare all’utente anche la possibilità di permettere o meno la ripetizione di c
     <main>
         <div class="container">
             <h1 class="text-uppercase text-center fw-bold">Password generator</h1>
-            <form action="index.php" method="GET">
+            <form action="index.php" method="GET" name="passwordForm">
                 <div class="row g-3 align-items-center justify-content-center">
                     <div class="col-auto">
-                        <label for="inputPassword6" class="col-form-label text-capitalize">Lunghezza Password</label>
+                        <label for="passwordLength" class="col-form-label text-capitalize">Lunghezza Password</label>
                     </div>
                     <div class="col-auto">
-                        <input type="password" id="inputPassword6" class="form-control" required>
+                        <input type="number" min="7" max="20" id="passwordLength" name="passwordLength"
+                            class="form-control" required>
                     </div>
+                </div>
+                <div class="d-flex flex-column p-3 align-items-center justify-content-center">
+                    <h2 class="text-capitalize">La tua password:</h2>
+                    <?php if (isset($password)) { ?>
+                    <h3>
+                        <?php echo $password ?>
+                    </h3>
+                    <?php } ?>
                 </div>
                 <div class="d-flex p-3 align-items-center justify-content-center">
                     <button type="submit" class="btn btn-primary">Invia</button>
                     <button type="reset" class="btn btn-secondary">Annulla</button>
                 </div>
-
             </form>
         </div>
     </main>
