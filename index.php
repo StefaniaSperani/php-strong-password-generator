@@ -25,15 +25,19 @@ Dare all’utente anche la possibilità di permettere o meno la ripetizione di c
 include __DIR__ . '/functions/functions.php';
 
 $password = '';
-$characters = [
-    'lettere' => 'abcdefghihyjklmnopqrstuvwxyz',
-    'numeri' => '1234567890',
-    'simboli' => '!£$%&/()=?^{}[]#@.,-_<>;'
-];
+$characters = 'abcdefghihjklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!£$%&/()=?^{}[]#@.,-_<>;';
 
 
 if (isset($_GET['passwordLength']) && !empty($_GET['passwordLength'])) {
-    var_dump($_GET['passwordLength']);
+    //var_dump($_GET['passwordLength']);
+    $pswLength = $_GET['passwordLength'];
+
+    for ($i = 0; $i < $pswLength; $i++) {
+        //var_dump($i);
+        $password .= getCharacter($characters);
+    }
+    ;
+    var_dump($password);
 }
 ;
 
