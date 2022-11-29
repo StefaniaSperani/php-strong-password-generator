@@ -21,9 +21,10 @@ Possono essere scelti singolarmente (es. solo numeri) oppure possono essere comb
 Dare all’utente anche la possibilità di permettere o meno la ripetizione di caratteri uguali. -->
 
 <?php
-
+include __DIR__ . '/partials/header.php';
 include __DIR__ . '/functions/functions.php';
 
+session_start();
 $password = '';
 $characters = 'abcdefghihjklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!£$%&/()=?^{}[]#@.,-_<>;';
 
@@ -31,33 +32,19 @@ $characters = 'abcdefghihjklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!�
 if (isset($_GET['passwordLength']) && !empty($_GET['passwordLength'])) {
     //var_dump($_GET['passwordLength']);
     $pswLength = $_GET['passwordLength'];
-
     for ($i = 0; $i < $pswLength; $i++) {
         //var_dump($i);
         $password .= getCharacter($characters);
     }
     ;
     var_dump($password);
+    $_SESSION['password'] = $password;
+    header('Location: ./password.php');
 }
 ;
 
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styles/style.css">
-    <title>PHP Password Generator</title>
-</head>
 
 <body>
     <main>
@@ -72,14 +59,6 @@ if (isset($_GET['passwordLength']) && !empty($_GET['passwordLength'])) {
                         <input type="number" min="7" max="20" id="passwordLength" name="passwordLength"
                             class="form-control" required>
                     </div>
-                </div>
-                <div class="d-flex flex-column p-3 align-items-center justify-content-center">
-                    <h2 class="text-capitalize">La tua password:</h2>
-                    <?php if (isset($password)) { ?>
-                    <h3>
-                        <?php echo $password ?>
-                    </h3>
-                    <?php } ?>
                 </div>
                 <div class="d-flex p-3 align-items-center justify-content-center">
                     <button type="submit" class="btn btn-primary">Invia</button>
